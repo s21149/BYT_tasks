@@ -7,7 +7,6 @@ public class Glass {
 
     GlassState glassState;
 
-    final int capacity = 250;
     int waterAmount = 0;
 
     boolean isBroken = false;
@@ -19,34 +18,27 @@ public class Glass {
         broken = new Broken(this);
         glassState = empty;
 
-
     }
 
     void setGlassState(GlassState newGlassState) {
-        glassState = newGlassState;
+        this.glassState = newGlassState;
     }
 
      public void pourWater(int amount) {
-        if (amount + waterAmount >= capacity) {
-            waterAmount = capacity;
-            setGlassState(full);
-        } else {
-            waterAmount += amount;
-            setGlassState(nonEmpty);
-        }
+        this.glassState.pourWater(amount);
     }
 
     public void drinkFrom(int amount){
-        if (waterAmount - amount <= 0) {
-            setGlassState(empty);
-        } else {
-            waterAmount -= amount;
-        }
+        this.glassState.drinkFrom(amount);
     }
 
     public void drop(){
-        this.isBroken = true;
-        setGlassState(broken);
+        this.glassState.drop();
     }
+
+    public GlassState getBrokenState() {return broken;}
+    public GlassState getNonEmptyState() {return nonEmpty;}
+    public GlassState getFullState() {return full;}
+    public GlassState getEmptyState() {return empty;}
 
 }
